@@ -1,0 +1,29 @@
+name: countercept
+variant: scratch
+install:
+  - dpkg
+shell: /bin/bash
+dependencies:
+  - stage: base
+steps:
+  - sources:
+      - url: https://download.withsecure.com/countercept/linux/latest/WithSecure-Countercept-Agent_amd64.deb
+        destination: countercept
+        sha256: a68a5a2fdff9358f661e1b2956725e819b9ae3b0def5976d4e164a6ab088d804
+        sha512: b0f12ff5b1435c3a1c203411b165a9deec3dafea952847965c312f757c598ae1053e282696ffc00ef28f452de51c22a5216a8fb1b933b45560a56dfcaaf822a8
+    install:
+      - |
+        mkdir -p /rootfs/opt/f-secure
+    # test:
+    #   - |
+    #     mkdir -p /extensions-validator-rootfs
+    #     cp -r /rootfs/ /extensions-validator-rootfs/rootfs
+    #     cp /pkg/manifest.yaml /extensions-validator-rootfs/manifest.yaml
+    #     /extensions-validator validate --rootfs=/extensions-validator-rootfs --pkg-name="${PKG_NAME}"
+    #   - |
+    #     [[ $(/rootfs/usr/local/lib/containers/cloudflared/usr/local/bin/cloudflared version) == *{{ .CLOUDFLARED_VERSION }}* ]]
+finalize:
+  - from: /rootfs
+    to: /rootfs
+  - from: /pkg/manifest.yaml
+    to: /

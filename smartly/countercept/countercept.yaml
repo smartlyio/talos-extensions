@@ -1,0 +1,11 @@
+name: countercept
+depends:
+  - network:
+    - addresses
+    - connectivity
+    - etcfiles
+    - hostname
+  - configuration: true
+container:
+  entrypoint: /opt/f-secure/mdr/mdr/bin/activate
+restart: always

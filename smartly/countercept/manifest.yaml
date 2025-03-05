@@ -1,0 +1,9 @@
+version: v1alpha1
+metadata:
+  name: countercept
+  version: "WIP"
+  author: Erik Karsten
+  description: ""
+  compatibility:
+    talos:
+      version: ">= v1.5.0"
