@@ -1,19 +1,22 @@
 name: countercept
-variant: scratch
-install:
-  - dpkg
+variant: alpine
 shell: /bin/bash
+install:
+  - build-base
+  - bash
+  - dpkg
 dependencies:
-  - stage: base
+  - image: cgr.dev/chainguard/wolfi-base@{{ .WOLFI_BASE_REF }}
 steps:
   - sources:
       - url: https://download.withsecure.com/countercept/linux/latest/WithSecure-Countercept-Agent_amd64.deb
-        destination: countercept
+        destination: countercept.deb
         sha256: a68a5a2fdff9358f661e1b2956725e819b9ae3b0def5976d4e164a6ab088d804
         sha512: b0f12ff5b1435c3a1c203411b165a9deec3dafea952847965c312f757c598ae1053e282696ffc00ef28f452de51c22a5216a8fb1b933b45560a56dfcaaf822a8
     install:
-      - |
-        mkdir -p /rootfs/opt/f-secure
+      - mkdir -p /rootfs
+      - ar x countercept.deb
+      - tar -xJf data.tar.xz -C /rootfs/
     # test:
     #   - |
     #     mkdir -p /extensions-validator-rootfs
