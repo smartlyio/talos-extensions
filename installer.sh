@@ -1,0 +1,9 @@
+set -euo pipefail
+TALOS_VERSION=v1.9.1
+ARCH=amd64
+PROFILE=installer
+COUNTERCEPT_IMAGE=dev.artifactor.ee/talos-countercept-extension:wip
+docker run --rm -t -v "/home/shebpamm/.docker/config.json:/docker-config/config.json" -e DOCKER_CONFIG="/docker-config" -v /dev:/dev --privileged -v "$PWD/_out:/out" "ghcr.io/siderolabs/imager:${TALOS_VERSION}" --arch "${ARCH}" \
+  --system-extension-image ${COUNTERCEPT_IMAGE}  ${PROFILE}
+docker load -i ./_out/installer-${ARCH}.tar 
+docker tag ghcr.io/siderolabs/installer:${TALOS_VERSION} dev.artifactor.ee/talos-countercept-installer:${TALOS_VERSION}
