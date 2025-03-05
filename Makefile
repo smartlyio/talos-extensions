@@ -196,7 +196,7 @@ nonfree: $(NONFREE_TARGETS)  ## Builds all nonfree targets defined.
 
 .PHONY: $(TARGETS) $(NONFREE_TARGETS)
 $(TARGETS) $(NONFREE_TARGETS): $(ARTIFACTS)/bldr
-	@$(MAKE) docker-$@ TARGET_ARGS="--tag=$(REGISTRY)/$(USERNAME)/$@:$(shell $(ARTIFACTS)/bldr eval --target $@ --build-arg TAG=$(TAG) '{{.VERSION}}' 2>/dev/null) --push=$(PUSH)"
+	@$(MAKE) docker-$@ TARGET_ARGS="--tag=$(REGISTRY)/$(USERNAME)/$@:$(shell $(ARTIFACTS)/bldr eval --target $@ --build-arg TAG=$(TAG) '{{.VERSION}}' 2>/dev/null) --push=$(PUSH) --load"
 
 $(ARTIFACTS)/bldr: $(ARTIFACTS)  ## Downloads bldr binary.
 	@curl -sSL https://github.com/siderolabs/bldr/releases/download/$(BLDR_RELEASE)/bldr-$(OPERATING_SYSTEM)-$(GOARCH) -o $(ARTIFACTS)/bldr
