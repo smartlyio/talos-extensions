@@ -1,7 +1,7 @@
 version: v1alpha1
 metadata:
   name: countercept
-  version: "WIP"
+  version: wip
   author: Erik Karsten
   description: ""
   compatibility:
