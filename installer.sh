@@ -8,7 +8,7 @@ make countercept PLATFORM=linux/amd64
 docker tag ghcr.io/siderolabs/countercept:wip "$COUNTERCEPT_IMAGE"
 docker push "$COUNTERCEPT_IMAGE"
 
-docker run --rm -t -v "/home/shebpamm/.docker/config.json:/docker-config/config.json" -e DOCKER_CONFIG="/docker-config" -v /dev:/dev --privileged -v "$PWD/_out:/out" "ghcr.io/siderolabs/imager:${TALOS_VERSION}" --arch "${ARCH}" \
+docker run --rm -t -v "$HOME/.docker/config.json:/docker-config/config.json" -e DOCKER_CONFIG="/docker-config" -v /dev:/dev --privileged -v "$PWD/_out:/out" "ghcr.io/siderolabs/imager:${TALOS_VERSION}" --arch "${ARCH}" \
   --system-extension-image ${COUNTERCEPT_IMAGE}  ${PROFILE}
 docker load -i ./_out/installer-${ARCH}.tar 
 docker tag ghcr.io/siderolabs/installer:${TALOS_VERSION} dev.artifactor.ee/talos-countercept-installer:${TALOS_VERSION}
