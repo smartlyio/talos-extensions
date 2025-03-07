@@ -6,6 +6,35 @@ depends:
       - etcfiles
       - hostname
   - configuration: true
+  - path: /usr/lib/ld-linux-x86-64.so.2
 container:
   entrypoint: /opt/f-secure/mdr/mdr/bin/activate
+  mounts:
+    - source: /lib
+      destination: /lib
+      type: bind
+      options:
+        - bind
+        - ro
+    - source: /usr/lib
+      destination: /lib64
+      type: bind
+      options:
+        - bind
+        - ro
+    - source: /usr/local/glibc/usr/lib
+      destination: /usr/local/glibc/usr/lib
+      type: bind
+      options:
+        - bind
+        - ro
+    - source: /usr/local/opt/f-secure
+      destination: /opt/f-secure
+      type: bind
+      options:
+        - bind
+        - rw
+  security:
+    writeableRootfs: true
+    writeableSysfs: true
 restart: never
